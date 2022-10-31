@@ -7,8 +7,12 @@ double trap(double a, double b, int n, double (*test)(double));
 
 int main(void)
 {
-   double a = 7,b = 8, a2= -2,b2 = 2,u,o;
-   int v[] = {2,4,8,16,32,64,128,256,512, 1024, 2048}, n;
+   double a = 0,b = M_PI,
+          a2= -2,b2 = 2,
+          u,o;
+   int v[] = {2,4,8,16,32,64,128,256,512, 1024, 2048},
+        n;
+
 
 
     for (int i = 0; i < (sizeof(v)/sizeof(int)); ++i) {
@@ -25,10 +29,10 @@ double g_x(double a){
 }
 
 double h_x(double b){
-    if(b<2)
+//    if(b<2)
     return sqrt(4 - (pow(b,2)));
-    else
-    return sqrt(4 - (pow(b-2,2)));
+//    else
+//    return sqrt(4 - (pow(b-2,2)));
 }
 
 double get_sum(double a, double h, int n, double (*funk)(double)){
@@ -37,7 +41,6 @@ double get_sum(double a, double h, int n, double (*funk)(double)){
         sum += funk(a+h*i);
         //printf("%lf\n",sum);
     }
-    //printf("%lf",sum);
 
     return sum;
 }
