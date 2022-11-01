@@ -1,54 +1,22 @@
-#include <stdio.h>
-#include <math.h>
-double g_x(double a);
-double h_x(double b);
-double get_sum(double a, double h, int n, double (*funk)(double));
-double trap(double a, double b, int n, double (*test)(double));
+#include "functions.h"
 
-int main(void)
-{
-   double a = 0,b = M_PI,
-          a2= -2,b2 = 2,
-          u,o;
-   int v[] = {2,4,8,16,32,64,128,256,512, 1024, 2048},
-        n;
+int main(void) {
+    double a = 0, b = M_PI, //Input to calculate area under g(x)
+    a2 = -2, b2 = 2,  //Input to calculate area under g(x)
+    u, o;
+    int v[] = {2, 4, 8, 16, 32, 64, 128, 256, 512, 1024,2048}, //Array of values for 'n' to show the difference in approximation
+    n;                                                                                                     //low and high number of intervals using the trapezoidal rule
 
-
-
-    for (int i = 0; i < (sizeof(v)/sizeof(int)); ++i) {
+    for (int i = 0; i < (sizeof(v) /
+                         sizeof(int)); ++i) { //loop to approximate area for g(x) and h(x) for the given values a and b for each number of intervals in v[]
         n = v[i];
-        u = trap(a,b,n,g_x);
-        o = trap(a2,b2,n,h_x);
-        printf("area of g(x) at %d intervals %lf\n",v[i], u);
-        printf("area of h(x) at %d intervals %lf\n",v[i], o);
+        u = trap(a, b, n, g_x);
+        o = trap(a2, b2, n, h_x);
+        printf("area of g(x) at %d intervals %lf\n", v[i], u);
+        printf("area of h(x) at %d intervals %lf\n", v[i], o);
+
     }
 }
 
-double g_x(double a){
-    return (pow(a,2)) * (sin(a));
-}
-
-double h_x(double b){
-//    if(b<2)
-    return sqrt(4 - (pow(b,2)));
-//    else
-//    return sqrt(4 - (pow(b-2,2)));
-}
-
-double get_sum(double a, double h, int n, double (*funk)(double)){
-    double sum = 0;
-    for (int i = 0; i < n; ++i) {
-        sum += funk(a+h*i);
-        //printf("%lf\n",sum);
-    }
-
-    return sum;
-}
-
-double trap(double a, double b, int n, double (*test)(double)){
-    double h = (b-a)/n;
-    double sum = get_sum(a, h, n, test);
-    return (h/2)*(test(a)+test(b) + (2 * (sum)));
 
 
-}
